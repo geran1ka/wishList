@@ -7,3 +7,9 @@
 .nav__btn:not(:last-child) {
   margin-right: 22px;
 }
+
+@media (max-width: 1200px) {
+  .nav__btn {
+    margin-right: 18px;
+  }
+}

@@ -93,3 +93,28 @@ fieldset {
   color: #ffffff;
   background-color: #365ABA;
 }
+
+.input {
+  font-size: 48px;
+}
+
+@media (max-width: 1700px) {
+  .container {
+    padding: 0 32px;
+  }
+
+  .btn {
+    font-size: 28px;
+  }
+
+}
+
+@media (max-width: 1200px) {
+  .container {
+    padding: 0 22px;
+  }
+
+  .btn {
+    font-size: 24px;
+  }
+}
