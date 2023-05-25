@@ -134,10 +134,6 @@
   margin-bottom: 0;
 }
 
-.edit {
-
-}
-
 .edit__wish {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -187,7 +183,7 @@
   right: 8px;
 }
 
-@media (max-width: 1700px) {
+@media (max-width: 1200px) {
   .edit__avatar {
     margin-bottom: 56px;
   }
@@ -199,5 +195,35 @@
 
   .edit__label_avatar {
     font-size: 38px;
+  }
+
+  .edit__name {
+    flex-direction: column;
+    gap: 40px;
+    margin-bottom: 30px;
+  }
+
+  .edit__birthdate {
+    margin-bottom: 40px;
+  }
+
+  .edit__description-input {
+    min-height: 311px;
+  }
+
+  .edit__description {
+    margin-bottom: 40px;
+  }
+
+  .edit__wish {
+    grid-template-columns: 1fr;
+  }
+
+  .edit__label {
+    max-width: 694px;
+  }
+
+  .edit__submit-btn {
+    margin-right: 18px;
   }
 }
