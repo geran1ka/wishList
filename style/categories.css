@@ -8,3 +8,13 @@
   line-height: 59px;
   margin-bottom: 38px;
 }
+
+@media (max-width: 1700px) {
+  .categories__item {
+    margin-bottom: 84px;
+  }
+
+  .categories__title {
+    margin-bottom: 30px;
+  }
+}

@@ -94,14 +94,30 @@ fieldset {
   background-color: #365ABA;
 }
 
-.input {
-  
+
+@media (max-width: 1700px) {
+  .container {
+    padding: 0 32px;
+  }
+
+  .btn {
+    font-size: 28px;
+  }
+
 }
 
-.hero {
-  display: none;
+@media (max-width: 1200px) {
+  .container {
+    padding: 0 22px;
+  }
+
+  .btn {
+    font-size: 24px;
+  }
 }
 
-.wishlist {
-  display: none;
+@media (max-width: 992px) {
+  .container {
+    padding: 0 34px;
+  }
 }
