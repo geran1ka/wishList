@@ -31,7 +31,7 @@
     flex-direction: column;
     justify-content: center;
     gap: 24px;
-    transform: translateY(calc(-100% -130px));
+    transform: translateY(calc(-100% - 130px));
     transition: transform 0.5s ease-in-out;
   }
 
