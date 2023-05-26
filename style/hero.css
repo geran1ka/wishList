@@ -14,7 +14,6 @@
   font-family: 'Aclonica';
   font-weight: 400;
   font-size: 312px;
-  line-height: 354px;
   text-transform: uppercase;
   margin-bottom: 24px;
 }
@@ -23,13 +22,9 @@
 .hero__description {
   max-width: 940px;
   font-size: 46px;
-  line-height: 54px;
   text-align: center;
   margin-bottom: 135px;
 }
-
-
-.hero__steps {}
 
 @media (max-width: 1700px) {
   .hero__title {
@@ -39,7 +34,7 @@
 
   .hero__description {
     font-size: 42px;
-    min-width: 860px;
+    max-width: 860px;
     margin-bottom: 66px;
   }
 }
@@ -56,9 +51,37 @@
   
   .hero__description {
     font-size: 36px;
-    min-width: 770px;
+    max-width: 770px;
     margin-bottom: 32px;
   }
 }
+
+@media (max-width: 992px) {
+  .hero__title {
+    font-size: 118px;
+  }
+  
+  .hero__description {
+    font-size: 26px;
+    max-width: 590px;
+    margin-bottom: 100px;
+  }
+}
+
+@media (max-width: 740px) {
+  .hero__title {
+    font-size: 96px;
+    margin-bottom: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .hero__description {
+    font-size: 18px;
+    margin-bottom: 54px;
+  }
+}
+
 
 
