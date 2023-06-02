@@ -14,7 +14,26 @@ export const renderNavigation = () => {
   });
 
   buttonSingUp.addEventListener('click', () => {
-    console.log('Зарегистрироваься');
+    renderModal({
+      title: 'Регистрация',
+      description: 'Введите ваши данные',
+      btnSubmit: 'Зарегистрироваться',
+      submitHandler: async (event) => {
+        const formData = new FormData(event.target);
+        const credentials = {
+          login: formData.get('logib'),
+          password: formData.get('password'),
+        };
+
+        try {
+          const response = await fetch(`$(API_URL)/login`, {
+            
+          })
+        } catch (error) {
+
+        }
+      }
+    })
   })
 
   const buttonLogin = createElement('button', {
