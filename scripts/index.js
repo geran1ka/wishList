@@ -1,51 +1,69 @@
+import { JWT_TOKEN_KEY } from "./const.js";
 import { createHero } from "./createHero.js";
+import { createWishList } from "./createWishList.js";
+import { getLogin } from "./serviceAPI.js";
 import { renderNavigation } from "./renderNavigation.js";
+import { createEditProfile } from "./createEditProfile.js";
+import { createEditWish } from "./createEditWish.js";
 
 export const router = Router();
+const token = localStorage.getItem(JWT_TOKEN_KEY)
+export const auth = token ? await getLogin(token) : {};
+
+let isMainPage = true;
+
 
 const app =document.querySelector('.app');
 
-const handleEditPageRoute = (id) => {
-
+const handleEditPageRoute = async (id) => {
+  isMainPage = false;
+  app.textContent = '';
+  const {sectionEditWish, formWish} = await createEditWish(id);
+  renderNavigation('profile', formWish);
+  app.append(sectionEditWish);
 }
 
 
-const handleEditProfileRoute = (login) => {
-
+const handleEditProfileRoute = async (login) => {
+  isMainPage = false;
+  app.textContent = '';
+  const {sectionEditProfile, formProfile} = await createEditProfile(login);
+  renderNavigation('profile', formProfile);
+  app.append(sectionEditProfile);
 }
 
-const handleUserPage = (login) => {
-
+const handleUserRoute = async (login) => {
+  isMainPage = false;
+  app.textContent = '';
+  renderNavigation();
+  app.append(await createWishList(login));
 }
-
-
-
-
 
 const handleHomePage = () => {
+  isMainPage = false;
   app.textContent = '';
-
   renderNavigation();
-  const section = createHero();
-  app.append(section)
+  app.append(createHero())
 }
 
 
 const init = () => {
-  let isMainPage = true;
+
 
   router.on('/', handleHomePage);
-  router.on('/editwish/newwish', handleEditPageRoute);
   router.on('/editwish/:id', handleEditPageRoute);
   router.on('/editprofile/:login', handleEditProfileRoute);
-  router.on('/user/:login', handleUserPage);
+  router.on('/user/:login', handleUserRoute);
 
-  handleHomePage();
+  router.init();
 
   if (isMainPage) {
-    isMainPage = false;
-    router.setRoute('/');
 
+    if (auth.login) {
+      router.setRoute(`/user/${auth.login}`);
+    } else {
+      router.setRoute('/');
+    }
   }
 }
 

@@ -1,36 +1,120 @@
 import { createBurgerMenu } from "./createBurgerMenu.js";
 import {createElement} from "./helper.js";
+import { API_URL, JWT_TOKEN_KEY, ROUTE_NEW_WISH} from "./const.js";
+import { renderModal } from "./renderModal.js";
+import { auth, router } from "./index.js";
 
 const nav = document.querySelector('.nav');
-createBurgerMenu(nav, 'nav_active');
+createBurgerMenu(nav, 'nav_active', '.nav__btn');
 
 
-export const renderNavigation = () => {
+export const renderNavigation = (edit, formProfile) => {
   nav.textContent = '';
+
+  if (edit) {
+    console.log('Сохранить изменения');
+    const buttonSave = createElement('button', {
+      className: 'nav__btn btn',
+      textContent: 'Сохранить изменения',
+    });
+
+    buttonSave.addEventListener('click', (e) => {
+      e.preventDefault();
+      formProfile.dispatchEvent(new Event('submit', {bubbles: true}))
+    })
+
+
+    const buttonBack = createElement('button', {
+      className: 'nav__btn btn',
+      textContent: 'Назад',
+    });
+
+    buttonBack.addEventListener('click', (e) => {
+      history.back()
+    })
+
+    nav.append(buttonSave, buttonBack);
+    return;
+  }
+  console.log('auth.login: ', auth.login);
+  if (auth.login) {
+    console.log('Редактировать профиль');
+    const buttonEditProfile = createElement('button', {
+      className: 'nav__btn btn',
+      textContent: 'Редактировать профиль',
+    });
+
+    buttonEditProfile.addEventListener('click', () => {
+      router.setRoute(`/editprofile/${auth.login}`)
+    })
+
+    const buttonAddWish = createElement('button', {
+      className: 'nav__btn btn',
+      textContent: 'Добавить желание',
+    });
+
+    buttonAddWish.addEventListener('click', () => {
+      router.setRoute(`/editwish/${ROUTE_NEW_WISH}`)
+    })
+
+    
+    const buttonLogout = createElement('button', {
+      className: 'nav__btn btn',
+      textContent: 'Выйти',
+    });
+
+    buttonLogout.addEventListener('click', () => {
+      localStorage.removeItem(JWT_TOKEN_KEY);
+      auth.login = '';
+      router.setRoute(`/`);
+    })
+
+    nav.append(buttonEditProfile, buttonAddWish, buttonLogout);
+    return;
+  }
 
   const buttonSingUp = createElement('button', {
     className: 'nav__btn btn',
     textContent: 'Зарегистрироваться'
   });
 
+
   buttonSingUp.addEventListener('click', () => {
+    console.log('Зарегистрироваться');
     renderModal({
       title: 'Регистрация',
-      description: 'Введите ваши данные',
+      description: 'Введите ваши данные для регистрации на сервисе WishList',
       btnSubmit: 'Зарегистрироваться',
-      submitHandler: async (event) => {
+      async submitHandler(event) {
         const formData = new FormData(event.target);
         const credentials = {
-          login: formData.get('logib'),
+          login: formData.get('login'),
           password: formData.get('password'),
         };
 
         try {
-          const response = await fetch(`$(API_URL)/login`, {
-            
-          })
-        } catch (error) {
+          const response = await fetch(`${API_URL}/register`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(credentials),
+          });
+          console.log('response: ', response);
 
+            if (response.ok) {
+              const data = await response.json();
+              localStorage.setItem(JWT_TOKEN_KEY, data.token);
+              auth.buttonLogin = data.login;
+              router.setRoute(`/user/${data.login}`)
+
+              return true;
+            } else {
+              const {message = 'Неизвестная ошибка'} = await response.json()
+              console.log(message);
+              throw new Error('Invalid credentials');
+            }
+
+        } catch (error) {
+          alert(error.message)
         }
       }
     })
@@ -42,9 +126,42 @@ export const renderNavigation = () => {
   });
 
   buttonLogin.addEventListener('click', () => {
-    console.log('Войти');
+    renderModal({
+      title: 'Авторизация',
+      description: 'ведите ваши данные для входа в личный кабинет',
+      btnSubmit: 'Авторизоваться',
+      async submitHandler(event) {
+        const formData = new FormData(event.target);
+        const credentials = {
+          login: formData.get('login'),
+          password: formData.get('password'),
+        };
+
+        try {
+          const response = await fetch(`${API_URL}/login`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(credentials),
+          });
+          console.log('response: ', response);
+
+            if (response.ok) {
+              const data = await response.json();
+              localStorage.setItem(JWT_TOKEN_KEY, data.token);
+              auth.buttonLogin = data.login;
+              router.setRoute(`/user/${data.login}`)
+              return true;
+            } else {
+              const {message = 'Неизвестная ошибка'} = await response.json()
+              console.log(message);
+              throw new Error('Invalid credentials');
+            }
+
+        } catch (error) {
+          alert(error.message)
+        }
+      }
+    })
   })
-
   nav.append(buttonSingUp, buttonLogin);
-
 };

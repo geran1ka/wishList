@@ -41,17 +41,3 @@ export const createHero = () => {
 
   return section;
 }
-
-/*
-    <section class="hero">
-      <div class="container hero__container">
-        <h1 class="hero__title">WishList</h1>
-        <p class="hero__description">Никогда не&nbsp;поздно поставить новую цель или обрести новую мечту... </p>
-        <ol class="hero__steps steps">
-          <li class="steps__item">создайте список желаний</li>
-          <li class="steps__item">Поделитесь ссылкой с&nbsp;друзьями</li>
-          <li class="steps__item">Получите желанный подарок</li>
-        </ol>
-      </div>
-    </section>
-*/
