@@ -3,7 +3,7 @@ import { createElement, pluralizeYears } from "./helper.js";
 import { auth, router } from "./index.js"
 import { getUser } from "./serviceAPI.js";
 
-export const createWishList = async (pageLogin) => {
+export const createWishList = async pageLogin => {
 
   const login = auth.login;
 

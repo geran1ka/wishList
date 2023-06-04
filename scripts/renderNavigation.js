@@ -80,7 +80,6 @@ export const renderNavigation = (edit, formProfile) => {
 
 
   buttonSingUp.addEventListener('click', () => {
-    console.log('Зарегистрироваться');
     renderModal({
       title: 'Регистрация',
       description: 'Введите ваши данные для регистрации на сервисе WishList',
@@ -103,7 +102,7 @@ export const renderNavigation = (edit, formProfile) => {
             if (response.ok) {
               const data = await response.json();
               localStorage.setItem(JWT_TOKEN_KEY, data.token);
-              auth.buttonLogin = data.login;
+              auth.login = data.login;
               router.setRoute(`/user/${data.login}`)
 
               return true;
@@ -143,12 +142,11 @@ export const renderNavigation = (edit, formProfile) => {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(credentials),
           });
-          console.log('response: ', response);
 
             if (response.ok) {
               const data = await response.json();
               localStorage.setItem(JWT_TOKEN_KEY, data.token);
-              auth.buttonLogin = data.login;
+              auth.login = data.login;
               router.setRoute(`/user/${data.login}`)
               return true;
             } else {

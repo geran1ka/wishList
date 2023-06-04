@@ -4,7 +4,7 @@ export const renderModal = ({
   title,
   description,
   btnSubmit,
-  submitHandler
+  submitHandler,
 }) => {
   const modal = createElement('div', {
     className: 'modal',

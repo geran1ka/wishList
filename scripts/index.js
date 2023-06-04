@@ -7,7 +7,7 @@ import { createEditProfile } from "./createEditProfile.js";
 import { createEditWish } from "./createEditWish.js";
 
 export const router = Router();
-const token = localStorage.getItem(JWT_TOKEN_KEY)
+const token = localStorage.getItem(JWT_TOKEN_KEY);
 export const auth = token ? await getLogin(token) : {};
 
 if (!auth.login) {
@@ -37,10 +37,11 @@ const handleEditProfileRoute = async (login) => {
 }
 
 const handleUserRoute = async (login) => {
-  isMainPage = false;
+  //isMainPage = false;
   app.textContent = '';
   renderNavigation();
   app.append(await createWishList(login));
+
 }
 
 const handleHomePage = () => {
@@ -53,8 +54,8 @@ const handleHomePage = () => {
 
 const init = () => {
   router.on('/', handleHomePage);
-  router.on('/editwish/:id', handleEditPageRoute);
-  router.on('/editprofile/:login', handleEditProfileRoute);
+  //router.on('/editwish/:id', handleEditPageRoute);
+  //router.on('/editprofile/:login', handleEditProfileRoute);
   router.on('/user/:login', handleUserRoute);
 
   router.init();
