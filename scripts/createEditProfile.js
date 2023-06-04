@@ -26,6 +26,7 @@ export const createEditProfile = async (login) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
+    console.log('data:Pro ', data);
 
     if (data.day && data.month &&data.year) {
       data.birthdate = `${data.month}/${data.day}/${data.year}`;
@@ -209,7 +210,7 @@ export const createEditProfile = async (login) => {
     className: 'edit__description-input',
     name: 'description',
     id: 'description',
-    value: user.description,
+    value: user.description ?? '',
   })
 
   editDescription.append(editDescriptionLabel, editDescriptionTextarea);

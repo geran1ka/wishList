@@ -10,6 +10,10 @@ export const router = Router();
 const token = localStorage.getItem(JWT_TOKEN_KEY)
 export const auth = token ? await getLogin(token) : {};
 
+if (!auth.login) {
+  localStorage.removeItem(JWT_TOKEN_KEY)
+}
+
 let isMainPage = true;
 
 
@@ -48,8 +52,6 @@ const handleHomePage = () => {
 
 
 const init = () => {
-
-
   router.on('/', handleHomePage);
   router.on('/editwish/:id', handleEditPageRoute);
   router.on('/editprofile/:login', handleEditProfileRoute);
@@ -58,7 +60,6 @@ const init = () => {
   router.init();
 
   if (isMainPage) {
-
     if (auth.login) {
       router.setRoute(`/user/${auth.login}`);
     } else {

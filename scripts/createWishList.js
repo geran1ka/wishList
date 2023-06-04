@@ -11,7 +11,12 @@ export const createWishList = async (pageLogin) => {
     pageLogin = login;
   }
   const user = await getUser(pageLogin);
-
+/*
+  if (user.login) {
+    router.setRoute('/');
+    return;
+  }
+*/
   const section = createElement('section', {
     className: 'wishlist',
   });

@@ -59,7 +59,7 @@ export const renderModal = ({
 
   const modalInputPassword = createElement('input', {
     className: 'modal__input',
-    type: 'text',
+    type: 'password',
     name: 'password',
     placeholder: 'Пароль',
     required: true,

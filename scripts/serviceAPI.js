@@ -14,6 +14,7 @@ export const getLogin = async (token) => {
 
     return data;
   } catch (err) {
+
     console.error(err);
   }
 };
@@ -62,8 +63,6 @@ export const sendDataUser = async (id, userData) => {
     });
 
     const data = await response.json();
-    console.log('data: ', data);
-
     return data;
   } catch (err) {
     console.error(err);
@@ -83,7 +82,7 @@ export const sendDataWish = async (wishData) => {
 
   try {
     const response = await fetch(`${API_URL}/addWish`, {
-      method: 'POST',
+      method: 'PUT',
       headers,
       body: JSON.stringify(wishData),
     });
@@ -95,3 +94,77 @@ export const sendDataWish = async (wishData) => {
   }
 };
 
+export const getWish = async (id) => {
+
+  const token = localStorage.getItem(JWT_TOKEN_KEY);
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  try {
+    const response = await fetch(`${API_URL}/wish/${id}`, {
+      method: 'GET',
+      headers,
+    });
+
+    const data = await response.json();
+
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const updateDataWish = async (id, wishData) => {
+
+  const token = localStorage.getItem(JWT_TOKEN_KEY);
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  try {
+    const response = await fetch(`${API_URL}/wish/${id}`, {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify(wishData),
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const deleteWish = async (id) => {
+
+  const token = localStorage.getItem(JWT_TOKEN_KEY);
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  try {
+    const response = await fetch(`${API_URL}/wish/${id}`, {
+      method: 'DELETE',
+      headers,
+
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+};

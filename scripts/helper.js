@@ -25,19 +25,20 @@ export const pluralizeYears = age => {
 };
 
 export const handleImageFileSelection = (inputFile, image, inputHidden) => {
-  const handleFileInputChange = e => {
-    if (e.target.files.length > 0) {
-      const file = e.target.files[0];
+  const handleFileInputChange = (event) => {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
       const reader = new FileReader();
       reader.addEventListener('load', () => {
         image.src = reader.result;
         if (inputHidden) {
+          console.log('inputHidden');
           inputHidden.value = reader.result;
         }
       });
       reader.readAsDataURL(file);
     }
-  }
+  };
 
   inputFile.addEventListener('change', handleFileInputChange)
 };
@@ -55,6 +56,7 @@ export const createSelectDate = (selectDay, selectMonth, selectYear, birhdate) =
     '',
     'Янв',
     'Фев',
+    'Мар',
     'Апр',
     'Май',
     'Июн',
@@ -105,7 +107,7 @@ export const createSelectDate = (selectDay, selectMonth, selectYear, birhdate) =
 
 };
 
-export const createOptionCurrency = (select) => {
+export const createOptionCurrency = (select, currency) => {
   const currencies = ['RUB', 'USD', 'EUR', 'GPB'];
 
   for (let i = 0; i < currencies.length; i++) {
@@ -115,4 +117,6 @@ export const createOptionCurrency = (select) => {
     });
     select.append(option);
   }
+
+  select.value = currency ?? currencies[0];
 }
