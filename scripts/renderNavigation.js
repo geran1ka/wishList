@@ -36,9 +36,7 @@ export const renderNavigation = (edit, formProfile) => {
     nav.append(buttonSave, buttonBack);
     return;
   }
-  console.log('auth.login: ', auth.login);
   if (auth.login) {
-    console.log('Редактировать профиль');
     const buttonEditProfile = createElement('button', {
       className: 'nav__btn btn',
       textContent: 'Редактировать профиль',

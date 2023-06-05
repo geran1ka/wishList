@@ -82,7 +82,7 @@ export const sendDataWish = async (wishData) => {
 
   try {
     const response = await fetch(`${API_URL}/addWish`, {
-      method: 'PUT',
+      method: 'POST',
       headers,
       body: JSON.stringify(wishData),
     });
@@ -159,7 +159,6 @@ export const deleteWish = async (id) => {
     const response = await fetch(`${API_URL}/wish/${id}`, {
       method: 'DELETE',
       headers,
-
     });
 
     const data = await response.json();

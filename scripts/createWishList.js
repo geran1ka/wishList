@@ -43,7 +43,7 @@ export const createWishList = async pageLogin => {
 
   const fullname = user.name || user.surname
     ? `${user.name || ''} ${user.surname || ''}`.trim()
-    : user.login
+    : user.login;
 
   const title = createElement ('h2', {
     className: 'profile__fullname',
@@ -95,13 +95,14 @@ export const createWishList = async pageLogin => {
   if (user.description) {
     const description = createElement('p', {
       className: 'wishlist__description',
-      innerHTML: user.description,
+      textContent: user.description,
     });
 
     container.append(description);
   }
 
-  if (!Object.keys(user.wish).length) {
+  if (!(Object.keys(user.wish).length)) {
+    console.log('user.wish: ', user.wish);
     const noWish = createElement('p', {
       className: 'wishlist__no-wish',
       textContent: 'Список желаний пуст',
@@ -117,6 +118,10 @@ export const createWishList = async pageLogin => {
     for (const title in user.wish) {
       if (!Object.hasOwnProperty.call(user.wish, title)) {
         return;
+      }
+
+      if (!user.wish[title].length) {
+        console.log('пусто');
       }
 
       const categoriesItem = createElement('li', {
@@ -189,6 +194,5 @@ export const createWishList = async pageLogin => {
     
     }
   }
-
   return section;
 };

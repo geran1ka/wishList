@@ -6,8 +6,6 @@ import { getUser, sendDataUser } from "./serviceAPI.js"
 export const createEditProfile = async (login) => {
   const user = await getUser(login);
 
-
-
   const sectionEditProfile = createElement('section', {
     className: 'edit edit_profile',
   });
